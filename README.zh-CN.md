@@ -10,21 +10,21 @@
 
 ## 目录
 
-- [项目简介](#overview)
-- [实现原理](#how-it-works)
-- [快速开始](#quick-start)
-- [使用方式](#usage)
-- [配置说明](#configuration)
-- [故障排查](#troubleshooting)
-- [开发路线](#roadmap)
-- [扩展其他平台](#adding-new-platforms)
-- [文件结构](#file-structure)
-- [安全注意事项](#security)
-- [与上游同步](#upstream-sync)
-- [贡献指南](#contributing)
-- [许可证](#license)
-- [致谢](#acknowledgments)
-- [免责声明](#disclaimer)
+- [项目简介](#项目简介)
+- [实现原理](#实现原理)
+- [快速开始](#快速开始)
+- [使用方式](#使用方式)
+- [配置说明](#配置说明)
+- [故障排查](#故障排查)
+- [开发路线](#开发路线)
+- [扩展其他平台](#扩展其他平台)
+- [文件结构](#文件结构)
+- [安全注意事项](#安全注意事项)
+- [与上游同步](#与上游同步)
+- [贡献指南](#贡献指南)
+- [许可证](#许可证)
+- [致谢](#致谢)
+- [免责声明](#免责声明)
 
 ---
 
@@ -34,46 +34,40 @@ OpenClaw Zero Token 是 [OpenClaw](https://github.com/openclaw/openclaw) 的分�
 
 ### 为什么选择 Zero Token？
 
-
 | 传统方式           | Zero Token 方式 |
-| -------------- | ------------- |
-| 需要购买 API Token | **完全免费**      |
-| 按调用次数计费        | 无使用限制         |
-| 需要绑定信用卡        | 仅需网页登录        |
-| Token 可能泄露     | 凭证本地存储        |
-
+| ------------------ | --------------- |
+| 需要购买 API Token | **完全免费**    |
+| 按调用次数计费     | 无使用限制      |
+| 需要绑定信用卡     | 仅需网页登录    |
+| Token 可能泄露     | 凭证本地存储    |
 
 ### 支持的平台
 
-
-| 平台                         | 状态        | 模型                                                   |
-| -------------------------- | --------- | ---------------------------------------------------- |
-| DeepSeek                   | ✅ **已测试** | deepseek-chat, deepseek-reasoner                     |
+| 平台                            | 状态          | 模型                                                 |
+| ------------------------------- | ------------- | ---------------------------------------------------- |
+| DeepSeek                        | ✅ **已测试** | deepseek-chat, deepseek-reasoner                     |
 | 千问国际版 (Qwen International) | ✅ **已测试** | Qwen 3.5 Plus, Qwen 3.5 Turbo                        |
-| 千问国内版 (Qwen 国内版)           | ✅ **已测试** | Qwen 3.5 Plus, Qwen 3.5 Turbo                        |
-| Kimi                       | ✅ **已测试** | Moonshot v1 8K, 32K, 128K                            |
-| Claude Web                 | ✅ **已测试** | claude-sonnet-4-6, claude-opus-4-6, claude-haiku-4-6 |
-| 豆包 (Doubao)                | ✅ **已测试** | doubao-seed-2.0, doubao-pro                          |
-| ChatGPT Web                | ✅ **已测试** | GPT-4, GPT-4 Turbo                                   |
-| Gemini Web                 | ✅ **已测试** | Gemini Pro, Gemini Ultra                             |
-| Grok Web                   | ✅ **已测试** | Grok 1, Grok 2                                       |
-| GLM Web (智谱清言)             | ✅ **已测试** | glm-4-Plus, glm-4-Think                              |
-| GLM Web (国际版)              | ✅ **已测试** | GLM-4 Plus, GLM-4 Think                              |
-| Manus API                  | ✅ **已测试** | Manus 1.6, Manus 1.6 Lite（API key，免费额度）              |
-
+| 千问国内版 (Qwen 国内版)        | ✅ **已测试** | Qwen 3.5 Plus, Qwen 3.5 Turbo                        |
+| Kimi                            | ✅ **已测试** | Moonshot v1 8K, 32K, 128K                            |
+| Claude Web                      | ✅ **已测试** | claude-sonnet-4-6, claude-opus-4-6, claude-haiku-4-6 |
+| 豆包 (Doubao)                   | ✅ **已测试** | doubao-seed-2.0, doubao-pro                          |
+| ChatGPT Web                     | ✅ **已测试** | GPT-4, GPT-4 Turbo                                   |
+| Gemini Web                      | ✅ **已测试** | Gemini Pro, Gemini Ultra                             |
+| Grok Web                        | ✅ **已测试** | Grok 1, Grok 2                                       |
+| GLM Web (智谱清言)              | ✅ **已测试** | glm-4-Plus, glm-4-Think                              |
+| GLM Web (国际版)                | ✅ **已测试** | GLM-4 Plus, GLM-4 Think                              |
+| Manus API                       | ✅ **已测试** | Manus 1.6, Manus 1.6 Lite（API key，免费额度）       |
 
 ### 工具调用支持
 
 当前支持的模型均可调用**本地工具**（如 exec、read_file、list_dir、browser、apply_patch 等），从而执行命令、读写工作区文件、进行网页自动化等。
 
-
-| 提供商类型                                          | 工具支持 | 说明                                               |
-| ---------------------------------------------- | ---- | ------------------------------------------------ |
-| **Web（DeepSeek、千问、Kimi、Claude、豆包、GLM、Grok 等）** | ✅    | 在 system 中注入 XML 工具说明，流式解析 `<tool_call>` 并在本地执行。 |
-| **ChatGPT Web / Gemini Web / Manus API**       | ✅    | 同样通过工具说明 + 多轮上下文 + `<tool_call>` 解析实现。           |
-| **OpenRouter / OpenAI 兼容 API**                 | ✅    | 使用原生 `tools` / `tool_calls` 接口。                  |
-| **Ollama**                                     | ✅    | 使用原生 `/api/chat` 的 tools。                        |
-
+| 提供商类型                                                  | 工具支持 | 说明                                                                 |
+| ----------------------------------------------------------- | -------- | -------------------------------------------------------------------- |
+| **Web（DeepSeek、千问、Kimi、Claude、豆包、GLM、Grok 等）** | ✅       | 在 system 中注入 XML 工具说明，流式解析 `<tool_call>` 并在本地执行。 |
+| **ChatGPT Web / Gemini Web / Manus API**                    | ✅       | 同样通过工具说明 + 多轮上下文 + `<tool_call>` 解析实现。             |
+| **OpenRouter / OpenAI 兼容 API**                            | ✅       | 使用原生 `tools` / `tool_calls` 接口。                               |
+| **Ollama**                                                  | ✅       | 使用原生 `/api/chat` 的 tools。                                      |
 
 Agent 的文件访问范围受配置中的**工作区**目录限制（见配置项 `agents.defaults.workspace`）。
 
@@ -81,7 +75,7 @@ Agent 的文件访问范围受配置中的**工作区**目录限制（见配置�
 
 **一次提问，获取所有 AI 模型的答案** — AskOnce 支持同时向多个已配置的 AI 模型发起查询，一次输入即可获得各模型回复。
 
-AskOnce 一次提问多模型回答
+![AskOnce: 一次提问，多模型回答](askonce.png)
 
 ---
 
@@ -165,22 +159,6 @@ AskOnce 一次提问多模型回答
 └────────────────────────────────────────────────────────────────────────────┘
 ```
 
-### 配置步骤
-
-请按照下面的命令步骤依次执行：
-
-1. **编译**：下载项目后执行 `npm install && npm run build && pnpm ui:build`
-2. **打开浏览器调试**：运行 `./start-chrome-debug.sh`
-3. **登录各大网站**：在 Chrome 中登录各模型网页版
-4. **配置 onboard**：运行 `./onboard.sh webauth`
-5. **启动 server**：运行 `./server.sh start`
-
-### 注意事项
-
-- **会话有效期**：会话可能定期失效，需重新登录
-- **浏览器依赖**：需要保持 Chrome 调试模式运行
-- **合规使用**：仅供个人学习研究，商用请使用官方API
-
 ## 快速开始
 
 > **平台支持：**
@@ -206,16 +184,16 @@ AskOnce 一次提问多模型回答
 │                                                                      │
 │  首次使用流程：                                                      │
 │  ┌──────────────────────────────────────────────────────────────┐  │
-│  │ 1. 编译                npm install && npm run build && pnpm ui:build │  │
+│  │ 1. 编译                pnpm install && pnpm build && pnpm ui:build │  │
 │  │ 2. 打开浏览器调试       ./start-chrome-debug.sh               │  │
 │  │ 3. 登录各大网站         千问国际版/国内版、Kimi 等
 │  │ 4. 配置 onboard        ./onboard.sh webauth                  │  │
-│  │ 5. 启动 server         ./server.sh start                     │  │
+│  │ 5. 启动 server         ./server.sh                            │  │
 │  └──────────────────────────────────────────────────────────────┘  │
 │                                                                      │
 │  日常使用：                                                          │
 │  ┌──────────────────────────────────────────────────────────────┐  │
-│  │ start-chrome-debug.sh → onboard.sh → server.sh start         │  │
+│  │ start-chrome-debug.sh → onboard.sh → server.sh              │  │
 │  │ server.sh [start|stop|restart|status]  管理 Gateway          │  │
 │  └──────────────────────────────────────────────────────────────┘  │
 │                                                                      │
@@ -224,13 +202,11 @@ AskOnce 一次提问多模型回答
 
 **脚本对比：**（核心 3 个脚本）
 
-
-| 脚本                      | 用途             | 使用场景                                                     |
-| ----------------------- | -------------- | -------------------------------------------------------- |
-| `start-chrome-debug.sh` | 启动 Chrome 调试模式 | 步骤 2：打开浏览器，端口 9222，供各平台登录与 onboard 连接                    |
-| `onboard.sh`            | 配置认证向导         | 步骤 4、5：选择平台（deepseek-web 等），捕获 Cookie/Token              |
-| `server.sh`             | 管理 Gateway 服务  | 步骤 6 及日常：`start` / `stop` / `restart` / `status`，端口 3001 |
-
+| 脚本                    | 用途                 | 使用场景                                                          |
+| ----------------------- | -------------------- | ----------------------------------------------------------------- |
+| `start-chrome-debug.sh` | 启动 Chrome 调试模式 | 步骤 2：打开浏览器，端口 9222，供各平台登录与 onboard 连接        |
+| `onboard.sh`            | 配置认证向导         | 步骤 4、5：选择平台（deepseek-web 等），捕获 Cookie/Token         |
+| `server.sh`             | 管理 Gateway 服务    | 步骤 5 及日常：`start` / `stop` / `restart` / `status`，端口 3002 |
 
 ### 安装说明
 
@@ -313,7 +289,7 @@ deepseek授权的时候，如果一直显示等待，记得刷新下网页
 ### Web UI
 
 执行 `./server.sh` 后会自动启动 Web UI，在聊天界面直接使用 AI 模型。
-后续也可以手动访问 `http://127.0.0.1:3001/chat?session=62b791625fa441be036acd3c206b7e14e2bb13c803355823`
+后续也可以手动访问 `http://127.0.0.1:3002/chat?session=62b791625fa441be036acd3c206b7e14e2bb13c803355823`
 
 #### 切换模型
 
@@ -365,7 +341,7 @@ deepseek-web/deepseek-chat                 text       64k      no    no    confi
 
 ```bash
 # 使用 Gateway Token 调用
-curl http://127.0.0.1:3001/v1/chat/completions \
+curl http://127.0.0.1:3002/v1/chat/completions \
   -H "Authorization: Bearer YOUR_GATEWAY_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -421,7 +397,7 @@ node openclaw.mjs tui
     }
   },
   "gateway": {
-    "port": 3001,
+    "port": 3002,
     "auth": {
       "mode": "token",
       "token": "your-gateway-token"
